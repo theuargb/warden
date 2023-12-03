@@ -10,4 +10,4 @@ export WARDEN_ENV_PATH
 export WARDEN_ENV_TYPE
 source ${WARDEN_ENV_PATH}/.env
 set +a
-${WARDEN_DIR}/commands/build.py && docker build . "$@"
+${WARDEN_DIR}/commands/deploy.py "${WARDEN_PARAMS[0]:undefined}" "$@"

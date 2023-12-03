@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+[[ ! ${WARDEN_DIR} ]] && >&2 echo -e "\033[31mThis script is not intended to be run directly!\033[0m" && exit 1
+
+WARDEN_USAGE=$(cat <<EOF
+Deploy specified application image
+\033[33mUsage:\033[0m
+  deploy <image>
+
+\033[33mOptions:\033[0m
+  -u, --unpack      Unpack the image to the host instead of volume
+  -p, --post        Post-deploy script to run in the new application container
+  -h, --help        Display this help menu
+
+EOF
+)
