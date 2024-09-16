@@ -5,6 +5,14 @@ WARDEN_ENV_PATH="$(locateEnvPath)" || exit $?
 loadEnvConfig "${WARDEN_ENV_PATH}" || exit $?
 assertDockerRunning
 
+## warn if global services are not running
+if [[ "${WARDEN_PARAMS[0]}" == "up" ]]; then
+    assertSvcRunning
+fi
+
+HOST_UID=$(id -u)
+HOST_GID=$(id -g)
+
 if (( ${#WARDEN_PARAMS[@]} == 0 )) || [[ "${WARDEN_PARAMS[0]}" == "help" ]]; then
   # shellcheck disable=SC2153
   $WARDEN_BIN env --help || exit $? && exit $?

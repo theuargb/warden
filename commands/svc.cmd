@@ -25,6 +25,9 @@ if [[ -f "${WARDEN_HOME_DIR}/.env" ]]; then
     eval "$(grep "^WARDEN_PORTAINER_ENABLE" "${WARDEN_HOME_DIR}/.env")"
 fi
 
+DOCKER_COMPOSE_ARGS+=("-f")
+DOCKER_COMPOSE_ARGS+=("${WARDEN_DIR}/docker/docker-compose.mailpit.yml")
+
 ## add dnsmasq docker-compose
 WARDEN_DNSMASQ_ENABLE="${WARDEN_DNSMASQ_ENABLE:-1}"
 if [[ "$WARDEN_DNSMASQ_ENABLE" == "1" ]]; then
@@ -66,9 +69,9 @@ if [[ "${WARDEN_PARAMS[0]}" == "up" ]]; then
 		tls:
 		  stores:
 		    default:
-		    defaultCertificate:
-		      certFile: /etc/ssl/certs/${WARDEN_SERVICE_DOMAIN}.crt.pem
-		      keyFile: /etc/ssl/certs/${WARDEN_SERVICE_DOMAIN}.key.pem
+		      defaultCertificate:
+		        certFile: /etc/ssl/certs/${WARDEN_SERVICE_DOMAIN}.crt.pem
+		        keyFile: /etc/ssl/certs/${WARDEN_SERVICE_DOMAIN}.key.pem
 		  certificates:
 	EOT
 
